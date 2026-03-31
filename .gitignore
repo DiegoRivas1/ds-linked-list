@@ -1,0 +1,21 @@
+# Build
+cmake-build-*/
+build/
+out/
+
+# CLion / JetBrains
+.idea/
+
+# Compiled
+*.exe
+*.o
+*.obj
+*.out
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+Makefile
+*.ninja
