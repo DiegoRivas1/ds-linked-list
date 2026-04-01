@@ -17,7 +17,7 @@ TEST(NodeTest, SetDataUpdatesValue) {
     node.setData(99);
     EXPECT_EQ(node.getData(), 99);
 }
-
+//
 TEST(NodeTest, SetNextUpdatesPointer) {
     Node node1(1, nullptr);
     Node node2(2, nullptr);

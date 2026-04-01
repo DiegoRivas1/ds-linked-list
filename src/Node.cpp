@@ -3,6 +3,10 @@
 //
 #include "Node.h"
 
+Node::Node(int data): data(data) {
+    this->next = nullptr;
+}
+
 Node::Node(int data, Node *next) : data(data), next(next){}
 
 int Node::getData() const {
