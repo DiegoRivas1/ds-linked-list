@@ -24,3 +24,10 @@ TEST(NodeTest, SetNextUpdatesPointer) {
     node1.setNext(&node2);
     EXPECT_EQ(node1.getNext(), &node2);
 }
+
+TEST(NodeTest, PrintOperator) {
+    Node node(42, nullptr);
+    std::ostringstream os;
+    os << node;
+    EXPECT_EQ(os.str(), "42");
+}

@@ -4,6 +4,7 @@
 
 #ifndef DS_LINKED_LIST_NODE_H
 #define DS_LINKED_LIST_NODE_H
+#include <ostream>
 
 class Node {
     private:
@@ -16,6 +17,8 @@ class Node {
         void setData(int newData);
         [[nodiscard]] Node* getNext() const;
         void setNext(Node* newNext);
+
+        friend std::ostream& operator<<(std::ostream& os, const Node& node);
 };
 
 /*
