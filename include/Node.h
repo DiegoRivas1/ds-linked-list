@@ -13,6 +13,7 @@ class Node {
     public:
         Node(int data);
         Node(int data, Node* next);
+        ~Node();
         [[nodiscard]] int getData() const; //Si alguien llama getData() y no usa el valor saldra alerta
         void setData(int newData);
         [[nodiscard]] Node* getNext() const;
