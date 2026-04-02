@@ -12,6 +12,8 @@ add_executable(ds_linked_list
         src/LinkedList.cpp
         include/StackComposicion.h
         src/StackComposicion.cpp
+        include/QueueComposicion.h
+        src/QueueComposicion.cpp
 )
 
 # Google Test
@@ -27,6 +29,8 @@ add_executable(ds_linked_list_test
         test/LinkedListTest.cpp
         src/StackComposicion.cpp
         test/StackComposicionTest.cpp
+        src/QueueComposicion.cpp
+        test/QueueComposicionTest.cpp
 )
 
 #target_include_directories(ds_linked_list_test PRIVATE include)

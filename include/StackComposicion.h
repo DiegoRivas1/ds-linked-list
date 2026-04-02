@@ -18,7 +18,7 @@ public:
     //
     void push(int data);
     void pop();
-    [[nodiscard]] int top() const;
+    [[nodiscard]] int top() const; //Ver el de arriab sin eliminar
     [[nodiscard]] bool isEmpty() const;
     [[nodiscard]] int size() const;
     void print() const;
