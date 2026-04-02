@@ -30,6 +30,11 @@ int QueueComposicion::size() const {
 void QueueComposicion::print() const {
     this->list.print();
 }
+
+std::string QueueComposicion::toDot() const {
+    return this->list.toDot();
+}
+
 std::ostream &operator<<(std::ostream &os, const QueueComposicion &comp) {
     os << comp.list;
     return os;

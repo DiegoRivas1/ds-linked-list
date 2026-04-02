@@ -25,6 +25,7 @@ class LinkedList : public List {
         void print() const override;
         [[nodiscard]] int size() const override;
         [[nodiscard]] bool isEmpty() const override;
+        [[nodiscard]] std::string toDot() const;
         friend std::ostream& operator<<(std::ostream& os, const LinkedList& list);
 };
 

@@ -1,7 +1,7 @@
 #include "LinkedList.h"
 #include <stdexcept>
 #include <iostream>
-
+#include <sstream>
 LinkedList::LinkedList() : head(nullptr),tail(nullptr), length(0){
 
 }
@@ -166,6 +166,23 @@ int LinkedList::size() const {
 
 bool LinkedList::isEmpty() const {
     return this->length == 0;
+}
+
+std::string LinkedList::toDot() const {
+    std::ostringstream os;
+    os << "digraph {\n";
+    os << "  rankdir=LR;\n";
+    os << "  node [shape=circle];\n";
+    Node* current = head;
+    while (current != nullptr) {
+        if (current->getNext() != nullptr) {
+            os << "  " << current->getData()
+               << " -> " << current->getNext()->getData() << ";\n";
+        }
+        current = current->getNext();
+    }
+    os << "}";
+    return os.str();
 }
 
 std::ostream& operator<<(std::ostream& os, const LinkedList& list) {

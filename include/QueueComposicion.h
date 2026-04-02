@@ -19,6 +19,7 @@ class QueueComposicion {
         [[nodiscard]] bool isEmpty() const;
         [[nodiscard]] int size() const;
         void print() const;
+        [[nodiscard]] std::string toDot() const;
 
         friend std::ostream &operator<<(std::ostream &os, const QueueComposicion &comp);
 };

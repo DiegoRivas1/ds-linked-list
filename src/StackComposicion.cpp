@@ -15,6 +15,10 @@ void StackComposicion::print() const {
     this->list.print();
 }
 
+std::string StackComposicion::toDot() const {
+    return this->list.toDot();
+}
+
 int StackComposicion::size() const {
     return this->list.size();
 }

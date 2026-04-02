@@ -22,6 +22,7 @@ public:
     [[nodiscard]] bool isEmpty() const;
     [[nodiscard]] int size() const;
     void print() const;
+    [[nodiscard]] std::string toDot() const;
     /*
     void insert(int data, int position) override;  // push
     void remove(int position) override;             // pop
