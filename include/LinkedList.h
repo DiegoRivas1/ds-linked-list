@@ -21,6 +21,7 @@ class LinkedList : public List {
         void insert(int data, int position) override;
         void remove(int position) override;
         [[nodiscard]] bool search(int data) const override;
+        [[nodiscard]] int searchPos(int position) const;
         void print() const override;
         [[nodiscard]] int size() const override;
         [[nodiscard]] bool isEmpty() const override;

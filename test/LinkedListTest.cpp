@@ -182,7 +182,7 @@ TEST(LinkedListTest, RemoveVariosEnMedio) {
     EXPECT_EQ(os.str(), "1 -> 4 -> 5\n");
 }
 
-//
+//Busqueda de datos por valor
 TEST(LinkedListTest, SearchEncontrado) {
     LinkedList list;
     list.insert(42, 0);
@@ -194,6 +194,59 @@ TEST(LinkedListTest, SearchNoEncontrado) {
     list.insert(1, 0);
     EXPECT_FALSE(list.search(99));
 }
+//Busqueda de datos por posicion
+
+TEST(LinkedListTest, SearchPosInicio) {
+    LinkedList list;
+    list.insert(10, 0);
+    list.insert(20, 1);
+    list.insert(30, 2);
+    EXPECT_EQ(list.searchPos(0), 10);
+}
+
+TEST(LinkedListTest, SearchPosFinal) {
+    LinkedList list;
+    list.insert(10, 0);
+    list.insert(20, 1);
+    list.insert(30, 2);
+    EXPECT_EQ(list.searchPos(2), 30);
+}
+
+TEST(LinkedListTest, SearchPosMedio) {
+    LinkedList list;
+    list.insert(10, 0);
+    list.insert(20, 1);
+    list.insert(30, 2);
+    EXPECT_EQ(list.searchPos(1), 20);
+}
+
+/*
+
+TEST(LinkedListTest, SearchPosInvalida) {
+    LinkedList list;
+    EXPECT_THROW((void)list.searchPos(0), std::out_of_range);
+}
+
+*/
+
+TEST(LinkedListTest, SearchPosInvalida) {
+    try {
+        LinkedList list;
+        [[maybe_unused]] int resultado = list.searchPos(0);
+        FAIL() << "Se esperaba std::out_of_range";
+    } catch (const std::out_of_range& e) {
+        EXPECT_STREQ(e.what(), "Posicion invalida");
+    }
+}
+
+TEST(LinkedListTest, SearchPosValida) {
+    LinkedList list;
+    list.insert(42, 0);
+    // Agregar elementos a la lista
+    int valor = list.searchPos(0);
+    EXPECT_EQ(valor, 42);
+}
+//
 
 TEST(LinkedListTest, IsEmptyVerdadero) {
     LinkedList list;

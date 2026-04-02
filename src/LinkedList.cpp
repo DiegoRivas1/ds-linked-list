@@ -138,6 +138,24 @@ bool LinkedList::search(int data) const {
     return false;
 }
 
+int LinkedList::searchPos(int position) const {
+    if (position < 0 || position >= length) {
+        throw std::out_of_range("Posicion invalida");
+    }
+    if (position == 0) {//O(1)
+        return this->head->getData();
+    }
+    if (position == length - 1) {//O(1)
+        return this->tail->getNext()->getData();
+    }
+    //Medio
+    Node* current = head;
+    for (int i = 0; i < position; i++) {
+        current = current->getNext();
+    }
+    return current->getData();
+}
+
 void LinkedList::print() const {
     std::cout << *this;
 }
