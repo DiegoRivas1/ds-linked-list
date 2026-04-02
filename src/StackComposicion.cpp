@@ -1,15 +1,14 @@
 #include "StackComposicion.h"
 #include <stdexcept>
-void StackComposicion::insert(int data, int position) {
-    this->list.insert(data, position);
+void StackComposicion::push(int data) {
+    this->list.insert(data, 0);
 }
 
-void StackComposicion::remove(int position) {
-    this->list.remove(position);
-}
-
-bool StackComposicion::search(int data) const {
-    return this->list.search(data);
+void StackComposicion::pop() {
+    if (this->isEmpty()) {
+        throw std::out_of_range("Stack vacio");
+    }
+    this->list.remove(0);
 }
 
 void StackComposicion::print() const {
