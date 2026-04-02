@@ -11,6 +11,7 @@
 class LinkedList : public List {
     private:
         Node* head;
+        Node* tail;
         int length;
     public:
 

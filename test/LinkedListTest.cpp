@@ -34,6 +34,56 @@ TEST(LinkedListTest, RemovePosicionInvalida) {
     EXPECT_THROW(list.remove(0), std::out_of_range);
 }
 
+//Insert y remove agregando tail que apuntara simepre al penultimo nodo
+
+TEST(LinkedListTest, InsertYRemoveAlFinalUnElemento) {
+    LinkedList list; // 1 -> 2 (head -> 1, tail -> 1)
+    list.insert(1, 0);
+    list.insert(2, 1);  // tail = head (penultimo)
+    list.remove(1);     // eliminar ultimo
+    EXPECT_EQ(list.size(), 1);
+    std::ostringstream os;
+    os << list;
+    EXPECT_EQ(os.str(), "1\n");
+}
+
+TEST(LinkedListTest, InsertYRemoveAlFinalDosElementos) {
+    LinkedList list; // 1 -> 2 -> 3 (head -> 1, tail -> 2)
+    list.insert(1, 0);
+    list.insert(2, 1);
+    list.insert(3, 2);  // tail apunta a nodo 1 (penultimo)
+    list.remove(2);     // eliminar ultimo
+    EXPECT_EQ(list.size(), 2);
+    std::ostringstream os;
+    os << list;
+    EXPECT_EQ(os.str(), "1 -> 2\n");
+}
+
+TEST(LinkedListTest, InsertYRemoveAlFinalTresElementos) {
+    LinkedList list; // 1 -> 2 -> 3 -> 4 (head -> 1, tail ->3)
+    list.insert(1, 0);
+    list.insert(2, 1);
+    list.insert(3, 2);
+    list.insert(4, 3);  // tail apunta a nodo 2 (penultimo)
+    list.remove(3);     // eliminar ultimo
+    EXPECT_EQ(list.size(), 3);
+    std::ostringstream os;
+    os << list;
+    EXPECT_EQ(os.str(), "1 -> 2 -> 3\n");
+}
+
+TEST(LinkedListTest, InsertAlFinalMultiple) {
+    LinkedList list;//// 1 -> 2 -> 3 -> 4 (head -> 1, tail ->3)
+    list.insert(1, 0);
+    list.insert(2, 1);
+    list.insert(3, 2);
+    list.insert(4, 3);
+    std::ostringstream os;
+    os << list;
+    EXPECT_EQ(os.str(), "1 -> 2 -> 3 -> 4\n");
+}
+
+//
 TEST(LinkedListTest, SearchEncontrado) {
     LinkedList list;
     list.insert(42, 0);

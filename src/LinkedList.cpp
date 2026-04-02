@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <iostream>
 
-LinkedList::LinkedList() : head(nullptr), length(0){
+LinkedList::LinkedList() : head(nullptr),tail(nullptr), length(0){
 
 }
 
@@ -16,20 +16,35 @@ LinkedList::~LinkedList() {
 }
 
 void LinkedList::insert(int data, int position) {
-    if (position < 0 || position > length) {//posicion insercion final = length, posicion elemento final = length - 1
+    if (position < 0 || position > length) {
         throw std::out_of_range("Posicion invalida");
     }
     Node* newNode = new Node(data);
 
-    //Insertamos al inicio
-    if (position == 0) {
+    // Lista vacia
+    if (isEmpty()) {
+        head = newNode;
+        tail = nullptr;
+    }
+    // Inicio
+    else if (position == 0) {
         newNode->setNext(head);
         head = newNode;
     }
-    else {//Medio o al final
-        //Insertar 4
-        //Medio 0, 1, 2, 3 (position = 1, current -> 0, current -> next -> 1) = 0, 4, 1, 2, 3
-        //Final 0, 1, 2, 3 (position = 4, current -> 3, current -> next -> nullptr) = 0, 1, 2, 3, 4
+    // Final O(1)
+    else if (position == length) {
+        if (tail == nullptr) {
+            // 1 elemento: tail es nullptr
+            head->setNext(newNode);
+            tail = head;
+        } else {
+            // 2+ elementos
+            tail->getNext()->setNext(newNode);
+            tail = tail->getNext();
+        }
+    }
+    // Medio
+    else {
         Node* current = head;
         for (int i = 0; i < position - 1; i++) {
             current = current->getNext();
@@ -41,19 +56,41 @@ void LinkedList::insert(int data, int position) {
 }
 
 void LinkedList::remove(int position) {
-    if (position < 0 || position >= length) {//posicion eliminacion final = length - 1, posicion elemento final = length - 1
+    if (position < 0 || position >= length) {
         throw std::out_of_range("Posicion invalida");
     }
     Node* toDelete;
 
-    if (position == 0) {//Posicion inicial
+    // 1 elemento
+    if (length == 1) {
+        toDelete = head;
+        head = nullptr;
+        tail = nullptr;
+    }
+    // Inicio
+    else if (position == 0) {
         toDelete = head;
         head = head->getNext();
+        if (length == 2) tail = nullptr;
     }
-    else {//Medio o al  final
-        //Eliminar
-        //Medio 0, 1, 2, 3 (position = 1, current -> 0, current -> next -> 2) = 0, 2, 3
-        //Final 0, 1, 2, 3 (position = 3, current -> 3, current -> next -> nullptr) = 0, 1, 2
+    // Final O(1)
+    else if (position == length - 1) {
+        if (tail == nullptr) {
+            // 2 elementos: head == penultimo
+            toDelete = head->getNext();
+            head->setNext(nullptr);
+        } else {
+            // 3+ elementos
+            toDelete = tail->getNext();
+            tail->setNext(nullptr);
+        }
+        // tail retrocede
+        tail = (length == 3) ? head : tail;
+        // si quedaron 2 elementos tail vuelve a nullptr
+        if (length - 1 == 1) tail = nullptr;
+    }
+    // Medio
+    else {
         Node* current = head;
         for (int i = 0; i < position - 1; i++) {
             current = current->getNext();
@@ -103,3 +140,56 @@ std::ostream& operator<<(std::ostream& os, const LinkedList& list) {
     os << std::endl;
     return os;
 }
+
+
+/*
+void LinkedList::insert(int data, int position) {
+    if (position < 0 || position > length) {//posicion insercion final = length, posicion elemento final = length - 1
+        throw std::out_of_range("Posicion invalida");
+    }
+    Node* newNode = new Node(data);
+
+    //Insertamos al inicio
+    if (position == 0) {
+        newNode->setNext(head);
+        head = newNode;
+    }
+    else {//Medio o al final
+        //Insertar 4
+        //Medio 0, 1, 2, 3 (position = 1, current -> 0, current -> next -> 1) = 0, 4, 1, 2, 3
+        //Final 0, 1, 2, 3 (position = 4, current -> 3, current -> next -> nullptr) = 0, 1, 2, 3, 4
+        Node* current = head;
+        for (int i = 0; i < position - 1; i++) {
+            current = current->getNext();
+        }
+        newNode->setNext(current->getNext());
+        current->setNext(newNode);
+    }
+    length++;
+}
+
+void LinkedList::remove(int position) {
+    if (position < 0 || position >= length) {//posicion eliminacion final = length - 1, posicion elemento final = length - 1
+        throw std::out_of_range("Posicion invalida");
+    }
+    Node* toDelete;
+
+    if (position == 0) {//Posicion inicial
+        toDelete = head;
+        head = head->getNext();
+    }
+    else {//Medio o al  final
+        //Eliminar
+        //Medio 0, 1, 2, 3 (position = 1, current -> 0, current -> next -> 2) = 0, 2, 3
+        //Final 0, 1, 2, 3 (position = 3, current -> 3, current -> next -> nullptr) = 0, 1, 2
+        Node* current = head;
+        for (int i = 0; i < position - 1; i++) {
+            current = current->getNext();
+        }
+        toDelete = current->getNext();
+        current->setNext(toDelete->getNext());
+    }
+    delete toDelete;
+    length--;
+}
+*/
