@@ -34,7 +34,16 @@ TEST(LinkedListTest, RemovePosicionInvalida) {
     EXPECT_THROW(list.remove(0), std::out_of_range);
 }
 
-//Insert y remove agregando tail que apuntara simepre al penultimo nodo
+// Insert y remove agregando tail que apuntara siempre al penultimo nodo
+TEST(LinkedListTest, InsertYRemoveFinalOInicio) {
+    LinkedList list; // 1 (head -> 1, tail -> nullptr)
+    list.insert(1, 0);
+    list.remove(0);
+    EXPECT_EQ(list.size(), 0);
+    std::ostringstream os;
+    os << list;
+    EXPECT_EQ(os.str(), "");
+}
 
 TEST(LinkedListTest, InsertYRemoveAlFinalUnElemento) {
     LinkedList list; // 1 -> 2 (head -> 1, tail -> 1)
@@ -60,7 +69,7 @@ TEST(LinkedListTest, InsertYRemoveAlFinalDosElementos) {
 }
 
 TEST(LinkedListTest, InsertYRemoveAlFinalTresElementos) {
-    LinkedList list; // 1 -> 2 -> 3 -> 4 (head -> 1, tail ->3)
+    LinkedList list; // 1 -> 2 -> 3 -> 4 (head -> 1, tail -> 3)
     list.insert(1, 0);
     list.insert(2, 1);
     list.insert(3, 2);
@@ -73,7 +82,7 @@ TEST(LinkedListTest, InsertYRemoveAlFinalTresElementos) {
 }
 
 TEST(LinkedListTest, InsertAlFinalMultiple) {
-    LinkedList list;//// 1 -> 2 -> 3 -> 4 (head -> 1, tail ->3)
+    LinkedList list; // 1 -> 2 -> 3 -> 4 (head -> 1, tail -> 3)
     list.insert(1, 0);
     list.insert(2, 1);
     list.insert(3, 2);
@@ -81,6 +90,96 @@ TEST(LinkedListTest, InsertAlFinalMultiple) {
     std::ostringstream os;
     os << list;
     EXPECT_EQ(os.str(), "1 -> 2 -> 3 -> 4\n");
+}
+
+// Insertar varios al inicio
+TEST(LinkedListTest, InsertVariosAlInicio) {
+    LinkedList list; // 4 -> 3 -> 2 -> 1 (head -> 4, tail -> 2)
+    list.insert(1, 0);
+    list.insert(2, 0);
+    list.insert(3, 0);
+    list.insert(4, 0);
+    std::ostringstream os;
+    os << list;
+    EXPECT_EQ(os.str(), "4 -> 3 -> 2 -> 1\n");
+}
+
+TEST(LinkedListTest, InsertVariosAlInicioYSize) {
+    LinkedList list;
+    list.insert(1, 0);
+    list.insert(2, 0);
+    list.insert(3, 0);
+    EXPECT_EQ(list.size(), 3);
+}
+
+// Eliminar varios al final
+TEST(LinkedListTest, RemoveVariosAlFinal) {
+    LinkedList list; // 1 -> 2 -> 3 -> 4 -> 5 (head -> 1, tail -> 4)
+    list.insert(1, 0);
+    list.insert(2, 1);
+    list.insert(3, 2);
+    list.insert(4, 3);
+    list.insert(5, 4);
+    list.remove(4); // 1 -> 2 -> 3 -> 4
+    list.remove(3); // 1 -> 2 -> 3
+    list.remove(2); // 1 -> 2
+    EXPECT_EQ(list.size(), 2);
+    std::ostringstream os;
+    os << list;
+    EXPECT_EQ(os.str(), "1 -> 2\n");
+}
+
+TEST(LinkedListTest, RemoveVariosAlFinalHastaVacia) {
+    LinkedList list; // 1 -> 2 -> 3 (head -> 1, tail -> 2)
+    list.insert(1, 0);
+    list.insert(2, 1);
+    list.insert(3, 2);
+    list.remove(2); // 1 -> 2
+    list.remove(1); // 1
+    list.remove(0); // vacia
+    EXPECT_EQ(list.size(), 0);
+    std::ostringstream os;
+    os << list;
+    EXPECT_EQ(os.str(), "");
+}
+
+// Insertar en medio
+TEST(LinkedListTest, InsertEnMedio) {
+    LinkedList list; // 1 -> 4 -> 2 -> 3
+    list.insert(1, 0);
+    list.insert(2, 1);
+    list.insert(3, 2);
+    list.insert(4, 1); // insertar 4 en posicion 1
+    std::ostringstream os;
+    os << list;
+    EXPECT_EQ(os.str(), "1 -> 4 -> 2 -> 3\n");
+}
+
+// Eliminar en medio
+TEST(LinkedListTest, RemoveEnMedio) {
+    LinkedList list; // 1 -> 2 -> 3 -> 4
+    list.insert(1, 0);
+    list.insert(2, 1);
+    list.insert(3, 2);
+    list.insert(4, 3);
+    list.remove(1); // eliminar posicion 1 = 1 -> 3 -> 4
+    std::ostringstream os;
+    os << list;
+    EXPECT_EQ(os.str(), "1 -> 3 -> 4\n");
+}
+
+TEST(LinkedListTest, RemoveVariosEnMedio) {
+    LinkedList list; // 1 -> 2 -> 3 -> 4 -> 5
+    list.insert(1, 0);
+    list.insert(2, 1);
+    list.insert(3, 2);
+    list.insert(4, 3);
+    list.insert(5, 4);
+    list.remove(1); // 1 -> 3 -> 4 -> 5
+    list.remove(1); // 1 -> 4 -> 5
+    std::ostringstream os;
+    os << list;
+    EXPECT_EQ(os.str(), "1 -> 4 -> 5\n");
 }
 
 //
