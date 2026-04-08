@@ -6,7 +6,10 @@ Implementación de **Linked List**, **Stack** y **Queue** en C++ desde cero, usa
 
 Las estructuras se pueden visualizar generando archivos `.dot` con Graphviz.
 
-![Demo](outputs/demo.png)
+![Demo](outputs/linkedlist.png)
+
+Pagina de muestra de las estructuras:
+https://ds-visualizer-sigma.vercel.app/
 
 ### Requisitos para la visualización
 

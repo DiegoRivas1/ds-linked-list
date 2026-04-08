@@ -16,10 +16,10 @@ int main() {
     std::string structures[3] = {"linkedlist", "stack", "queue"};
     std::cout << "=== LinkedList ===\n";
     LinkedList list;
-    list.insert(1, 0);
-    list.insert(2, 1);
-    list.insert(3, 2);
-    list.insert(4, 3);
+    int cantidadNodos = 6;
+    for (int i = 0; i < cantidadNodos; i++) {
+        list.insert(i + 1, i);
+    }
     list.print();
 
     std::string nombreArchivo = structures[0] + ".dot";
@@ -27,9 +27,10 @@ int main() {
 
     std::cout << "=== Stack ===\n";
     StackComposicion stack;
-    stack.push(1);
-    stack.push(2);
-    stack.push(3);
+
+    for (int i = 0; i < cantidadNodos; i++) {
+        stack.push(i + 1);
+    }
     std::cout << stack;
 
     nombreArchivo = structures[1] + ".dot";
@@ -37,9 +38,9 @@ int main() {
 
     std::cout << "=== Queue ===\n";
     QueueComposicion queue;
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
+    for (int i = 0; i < cantidadNodos; i++) {
+        queue.enqueue(i + 1);
+    }
     std::cout << queue;
 
     nombreArchivo = structures[2] + ".dot";
