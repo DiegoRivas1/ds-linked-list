@@ -173,36 +173,39 @@ std::string LinkedList::toDot() const {
 
     os << "digraph LinkedList {\n";
     os << "  rankdir=LR;\n";
-    os << "  nodesep=0.1;\n"; // Estrecho para que se vean pegados
+    os << "  nodesep=0.1;\n";
     os << "  ranksep=0.4;\n";
     os << "  graph [pad=\"0.5\", bgcolor=\"white\"];\n";
-
-    // Estilo de nodo: Record (memoria) con fuente monoespaciada
     os << "  node [shape=record, style=filled, fillcolor=\"#F8F9F9\", color=\"#2C3E50\", fontname=\"Courier New\", fontsize=10];\n";
     os << "  edge [color=\"#2980B9\", penwidth=1.2, arrowsize=0.7];\n\n";
+
+    // Caso: Lista Vacía
+    if (head == nullptr) {
+        os << "  empty [shape=plaintext, label=\"Lista Vacía\", fontcolor=\"#7F8C8D\"];\n";
+        os << "}\n";
+        return os.str();
+    }
 
     Node* current = head;
     int index = 0;
     int tailIndex = -1;
 
-    // 1. Identificar la posición del tail para el mapeo visual
+    // Localizar el índice del tail (si existe)
     Node* temp = head;
     for (int i = 0; i < length; i++) {
-        if (temp == tail) {
+        if (temp == tail && tail != nullptr) {
             tailIndex = i;
             break;
         }
         temp = temp->getNext();
     }
 
-    // 2. Definición de Nodos
+    // 1. Dibujar Nodos
     current = head;
-    index = 0;
     while (current != nullptr) {
         std::string style = "";
         if (current == head) style = "fillcolor=\"#EBF5FB\", color=\"#2980B9\", penwidth=2";
-        // Si es el tail según tu lógica (penúltimo), le damos un color distintivo
-        if (current == tail) style = "fillcolor=\"#FDEDEC\", color=\"#C0392B\"";
+        if (current == tail && tail != nullptr) style = "fillcolor=\"#FDEDEC\", color=\"#C0392B\"";
 
         os << "  node" << index << " [\n";
         os << "    label=\"{ " << current->getData() << " | <next> • }\",\n";
@@ -213,28 +216,22 @@ std::string LinkedList::toDot() const {
         index++;
     }
 
-    // 3. Conexiones Next
-    os << "\n  // Enlaces\n";
+    // 2. Conexiones Next
     for (int i = 0; i < length - 1; i++) {
         os << "  node" << i << ":next:c -> node" << i+1 << " [tailclip=false];\n";
     }
 
-    // Terminador NULL
-    if (length > 0) {
-        os << "  nil [shape=point, width=0.05];\n";
-        os << "  node" << length-1 << ":next:c -> nil [arrowhead=none, style=dashed, color=\"#BDC3C7\"];\n";
-    }
+    // NULL final
+    os << "  nil [shape=point, width=0.05];\n";
+    os << "  node" << length-1 << ":next:c -> nil [arrowhead=none, style=dashed, color=\"#BDC3C7\"];\n";
 
-    // 4. Punteros HEAD y TAIL
-    if (head != nullptr) {
-        os << "  head_label [shape=plaintext, label=\"HEAD\", fontcolor=\"#2980B9\", fontname=\"Arial Bold\"];\n";
-        os << "  head_label -> node0 [style=dotted];\n";
-    }
+    // 3. Puntero HEAD (Siempre que haya al menos un nodo)
+    os << "  head_label [shape=plaintext, label=\"HEAD\", fontcolor=\"#2980B9\", fontname=\"Arial Bold\"];\n";
+    os << "  head_label -> node0 [style=dotted];\n";
 
-    // Corregido: TAIL apunta al nodo que la variable 'tail' referencia (tu penúltimo)
+    // 4. Puntero TAIL (Solo si no es nullptr)
     if (tail != nullptr && tailIndex != -1) {
         os << "  tail_label [shape=plaintext, label=\"TAIL\", fontcolor=\"#C0392B\", fontname=\"Arial Bold\"];\n";
-        // Lo mandamos al puerto sur (:s) para que no interfiera con las flechas horizontales
         os << "  tail_label -> node" << tailIndex << ":s [style=dotted, color=\"#C0392B\"];\n";
     }
 

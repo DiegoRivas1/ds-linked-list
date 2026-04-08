@@ -16,7 +16,7 @@ int main() {
     std::string structures[3] = {"linkedlist", "stack", "queue"};
     std::cout << "=== LinkedList ===\n";
     LinkedList list;
-    int cantidadNodos = 6;
+    int cantidadNodos = 0;
     for (int i = 0; i < cantidadNodos; i++) {
         list.insert(i + 1, i);
     }
