@@ -9,7 +9,7 @@
 class Node {
     private:
         int data;
-        Node* next;
+        Node* next;//
     public:
         Node(int data);
         Node(int data, Node* next);
